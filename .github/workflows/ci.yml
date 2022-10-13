@@ -7,21 +7,30 @@ on:
     branches: [ master ]
 
 jobs:
-  test:
-
+  test_1g:
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v2
     - name: Use Python
       uses: actions/setup-python@v1
       with:
-        python-version: 3.10
+        python-version: 3.10.7
     - run: |
         pip install indexed_gzip
-        head -c 1G </dev/urandom >temp_1GB_file
-        gzip -k temp_1GB_file
+        head -c 1G </dev/urandom >temp_file
+        gzip -k temp_file
+    - run: python tst-index.py
 
-        head -c 10G </dev/urandom >temp_10GB_file
-        gzip -k temp_10GB_file
+  test_10g:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Python
+      uses: actions/setup-python@v1
+      with:
+        python-version: 3.10.7
+    - run: |
+        pip install indexed_gzip
+        head -c 10G </dev/urandom >temp_file
+        gzip -k temp_file
     - run: python tst-index.py
