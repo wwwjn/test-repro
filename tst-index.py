@@ -9,9 +9,10 @@ def test_indexed_gzip(file_path):
         raise io.UnsupportedOperation
     #source_fileobj.seek = fn
     #source_fileobj.tell = fn
-    source_fileobj.seekable = lambda: False
-    source_fileobj.fileno = fn
-    tar_file = indexed_gzip.IndexedGzipFile(fileobj=source_fileobj)
+    f = io.BytesIO(source_fileobj.read())
+    f.seekable = lambda: False
+    #source_fileobj.fileno = fn
+    tar_file = indexed_gzip.IndexedGzipFile(fileobj=f)
     while tar_file.read(1024 * 1024):
         continue
 
