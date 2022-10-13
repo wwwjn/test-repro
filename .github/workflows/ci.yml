@@ -17,13 +17,14 @@ jobs:
       uses: actions/setup-python@v1
       with:
         python-version: 3.6
-    - run: git clone https://github.com/codalab/codalab-worksheets.git
-    - run: ls
-    - run: pwd
-    - run: cp tst-index.py codalab-worksheets/
-    - run: cd codalab-worksheets/
-    - run: head -c 10G </dev/urandom >temp_10GB_file
-    - run: ls
-    - run: pip install -r requirements.txt
-    - run: pip install codalab
-    - run: python tst-index.py
+    - run: |
+        git clone https://github.com/codalab/codalab-worksheets.git
+        ls
+        pwd
+        cp tst-index.py codalab-worksheets/
+        cd codalab-worksheets/
+        head -c 10G </dev/urandom >temp_10GB_file
+        ls
+        pip install codalab
+        pip install -r requirements.txt
+        python tst-index.py
