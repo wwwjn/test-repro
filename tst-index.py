@@ -1,6 +1,6 @@
 import indexed_gzip
 
-file_path = 'temp_10GB_file'
+file_path = 'temp_10GB_file.gz'
 
 def test_indexed_gzip(file_path):
     source_fileobj = open(file_path, 'rb')
