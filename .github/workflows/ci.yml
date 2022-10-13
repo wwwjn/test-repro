@@ -7,32 +7,24 @@ on:
     branches: [ master ]
 
 jobs:
-  test_without_babel:
+  test:
 
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v2
-    - name: Use Node.js 12.x
-      uses: actions/setup-node@v1
+    - name: Use Python
+      uses: actions/setup-python@v1
       with:
-        node-version: 12.x
-    - run: yarn
-    - run: yarn test
-      env:
-        CI: true
-  
-  test_with_babel:
-
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js 12.x
-      uses: actions/setup-node@v1
-      with:
-        node-version: 12.x
-    - run: yarn
-    - run: yarn run jest
-      env:
-        CI: true
+        python-version: 3.6
+    - run: |
+        git clone https://github.com/codalab/codalab-worksheets.git
+        ls
+        pwd
+        cp tst-index.py codalab-worksheets/
+        cd codalab-worksheets/
+        head -c 10G </dev/urandom >temp_10GB_file
+        ls
+        pip install codalab
+        pip install -r requirements.txt
+        python tst-index.py
