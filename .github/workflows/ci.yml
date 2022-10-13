@@ -13,17 +13,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Test indexed_gzip
-      uses: actions/setup-python@v1
-      with:
-        python-version: 3.6
-    - run: git clone jobs:
-  test:
-
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@v2
     - name: Use Python
       uses: actions/setup-python@v1
       with:
