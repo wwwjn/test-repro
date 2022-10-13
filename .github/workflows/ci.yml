@@ -19,8 +19,9 @@ jobs:
       with:
         python-version: 3.10.7
     - run: pip install indexed-gzip
-    - run: fallocate -l $SIZE temp_file
+    #- run: fallocate -l $SIZE temp_file
+    - run: head -c $SIZE </dev/urandom >temp_file
       env:
         SIZE: ${{ matrix.size }}
-    - run: gzip -k temp_file
+    #- run: gzip -k temp_file
     - run: python tst-index.py
