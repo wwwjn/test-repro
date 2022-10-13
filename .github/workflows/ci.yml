@@ -23,4 +23,7 @@ jobs:
     - run: cp tst-index.py codalab-worksheets/
     - run: cd codalab-worksheets
     - run: head -c 10G </dev/urandom >temp_10GB_file
+    - run: ls
+    - run: pip install -r requirments.txt
+    - run: pip install codalab
     - run: python tst-index.py
