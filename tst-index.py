@@ -1,7 +1,7 @@
 import tempfile
 from codalab.worker.file_util import GzipStream
 
-from codalab.lib.beam.SQLiteIndexedTar import SQLiteIndexedTar
+
 import indexed_gzip
 
 file_path = 'temp_10GB_file'
