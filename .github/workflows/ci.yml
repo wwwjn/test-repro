@@ -18,13 +18,6 @@ jobs:
       with:
         python-version: 3.6
     - run: |
-        git clone https://github.com/codalab/codalab-worksheets.git
-        ls
-        pwd
-        cp tst-index.py codalab-worksheets/
-        cd codalab-worksheets/
+        pip install indexed_gzip
         head -c 10G </dev/urandom >temp_10GB_file
-        ls
-        pip install codalab
-        pip install -r requirements.txt
         python tst-index.py
