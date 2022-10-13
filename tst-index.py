@@ -85,7 +85,7 @@ def test_indexed_gzip(file_path):
 #     f = io.BytesIO(source_fileobj.read())
 #     source_fileobj.seekable = lambda: False
 #     source_fileobj.fileno = fn
-    tar_file = indexed_gzip.IndexedGzipFile(fileobj=GzipStream(source_fileobj))
+    tar_file = indexed_gzip.IndexedGzipFile(fileobj=GzipStream(source_fileobj), drop_handles=False, spacing=4*1024*1024)
     tar_file.build_full_index()
 #     while tar_file.read(1024 * 1024):
 #         continue
