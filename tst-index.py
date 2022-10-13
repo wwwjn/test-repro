@@ -6,7 +6,7 @@ file_path = 'temp_file.gz'
 def test_indexed_gzip(file_path):
     source_fileobj = open(file_path, 'rb')
     def fn():
-        raise UnsupportedOperation
+        raise io.UnsupportedOperation
     source_fileobj.seek = fn
     source_fileobj.tell = fn
     source_fileobj.seekable = lambda: False
