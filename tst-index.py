@@ -13,7 +13,8 @@ def test_indexed_gzip(file_path):
     f.seekable = lambda: False
     #source_fileobj.fileno = fn
     tar_file = indexed_gzip.IndexedGzipFile(fileobj=f)
-    while tar_file.read(1024 * 1024):
-        continue
+    tar_file.build_full_index()
+#     while tar_file.read(1024 * 1024):
+#         continue
 
 test_indexed_gzip(file_path)
