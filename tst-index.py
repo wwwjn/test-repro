@@ -74,7 +74,7 @@ class GzipStream(BytesIO):
     def close(self):
         self.__input.close()
 
-file_path = 'temp_file.gz'
+file_path = 'temp_file'
 
 def test_indexed_gzip(file_path):
     source_fileobj = open(file_path, 'rb')
