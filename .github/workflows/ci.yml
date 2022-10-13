@@ -19,6 +19,6 @@ jobs:
         python-version: 3.6
     - run: git clone https://github.com/codalab/codalab-worksheets.git
     - run: cd codalab-worksheets
-    - run: cp ../tst-index .
+    - run: cp ../tst-index.py .
     - run: head -c 10G </dev/urandom >temp_10GB_file
     - run: python tst-index.py
