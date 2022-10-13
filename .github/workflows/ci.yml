@@ -20,4 +20,5 @@ jobs:
     - run: |
         pip install indexed_gzip
         head -c 10G </dev/urandom >temp_10GB_file
+        gzip -k temp_10GB_file
         python tst-index.py
