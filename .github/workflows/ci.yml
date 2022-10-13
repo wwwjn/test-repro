@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        size: [10M]
+        size: [1G,10G]
     steps:
     - uses: actions/checkout@v2
     - name: Use Python
