@@ -16,7 +16,7 @@ jobs:
       with:
         python-version: 3.10.7
     - run: |
-        pip install indexed_gzip
+        pip install indexed-gzip
         head -c 1G </dev/urandom >temp_file
         gzip -k temp_file
     - run: python tst-index.py
@@ -30,7 +30,7 @@ jobs:
       with:
         python-version: 3.10.7
     - run: |
-        pip install indexed_gzip
+        pip install indexed-gzip
         head -c 10G </dev/urandom >temp_file
         gzip -k temp_file
     - run: python tst-index.py
