@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        size: [1G,10G]
+        size: [1G,10G,100G]
     steps:
     - uses: actions/checkout@v2
     - name: Use Python
@@ -19,8 +19,8 @@ jobs:
       with:
         python-version: 3.10.7
     - run: pip install indexed-gzip
-    #- run: fallocate -l $SIZE temp_file
-    - run: head -c $SIZE </dev/urandom >temp_file
+    - run: fallocate -l $SIZE temp_file
+    #- run: head -c $SIZE </dev/urandom >temp_file
       env:
         SIZE: ${{ matrix.size }}
     #- run: gzip -k temp_file
