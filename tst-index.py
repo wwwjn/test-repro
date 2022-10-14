@@ -86,7 +86,7 @@ class GzipStream(BytesIO):
         return self.__buffer.peek(num_bytes)
     
 
-file_path = 'temp_10GB_file'
+file_path = 'temp_file'
 
 def test_indexed_gzip(file_path):
     source_fileobj = open(file_path, 'rb')
