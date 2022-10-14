@@ -5,6 +5,7 @@ from typing import Optional, IO
 
 import indexed_gzip
 import io
+import os
 
 class BytesBuffer(BytesIO):
     """
@@ -56,25 +57,36 @@ class BytesBuffer(BytesIO):
 class GzipStream(BytesIO):
     """A stream that gzips a file in chunks.
     """
-
     def __init__(self, fileobj: IO[bytes]):
         self.__input = fileobj
         self.__buffer = BytesBuffer()
         self.__gzip = gzip.GzipFile(None, mode='wb', fileobj=self.__buffer)
 
-    def read(self, num_bytes=None) -> bytes:
+    def _fill_buf_bytes(self, num_bytes=None):
+        # print("Call _fill_buf_bytes in GZipStream, num_bytes: ", num_bytes)
         while num_bytes is None or len(self.__buffer) < num_bytes:
+            # print("Before: ", len(self.__buffer))
             s = self.__input.read(num_bytes)
+            # print("Middle: s size is ", len(s))
             if not s:
                 self.__gzip.close()
                 break
             self.__gzip.write(s)
+
+    def read(self, num_bytes=None) -> bytes:
+        self._fill_buf_bytes(num_bytes)
         return self.__buffer.read(num_bytes)
 
+    
     def close(self):
         self.__input.close()
+    
+    def peek(self, num_bytes):
+        self._fill_buf_bytes(num_bytes)
+        return self.__buffer.peek(num_bytes)
+    
 
-file_path = 'temp_file'
+file_path = 'temp_10GB_file'
 
 def test_indexed_gzip(file_path):
     source_fileobj = open(file_path, 'rb')
@@ -86,6 +98,7 @@ def test_indexed_gzip(file_path):
 #     source_fileobj.seekable = lambda: False
 #     source_fileobj.fileno = fn
     tar_file = indexed_gzip.IndexedGzipFile(fileobj=GzipStream(source_fileobj), drop_handles=False, spacing=4*1024*1024)
+    tar_file.peek(2)
     tar_file.build_full_index()
 #     while tar_file.read(1024 * 1024):
 #         continue
