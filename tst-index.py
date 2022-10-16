@@ -74,6 +74,7 @@ class GzipStream(BytesIO):
             self.__gzip.write(s)
 
     def read(self, num_bytes=None) -> bytes:
+        print("GzipStream Read() is called.")
         self._fill_buf_bytes(num_bytes)
         return self.__buffer.read(num_bytes)
 
@@ -82,6 +83,7 @@ class GzipStream(BytesIO):
         self.__input.close()
     
     def peek(self, num_bytes):
+        print("GzipStream Peek() is called.")
         self._fill_buf_bytes(num_bytes)
         return self.__buffer.peek(num_bytes)
     
@@ -98,9 +100,12 @@ def test_indexed_gzip(file_path):
 #     source_fileobj.seekable = lambda: False
 #     source_fileobj.fileno = fn
     tar_file = indexed_gzip.IndexedGzipFile(fileobj=GzipStream(source_fileobj), drop_handles=False, spacing=4*1024*1024)
-    tar_file.peek(2)
-    tar_file.build_full_index()
+    data = tar_file.peek(2)
+    print(len(data)) # The data length should be 2
+    assert len(data) == 2
+    # tar_file.build_full_index()
 #     while tar_file.read(1024 * 1024):
 #         continue
 
 test_indexed_gzip(file_path)
+
